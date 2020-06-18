@@ -1,5 +1,11 @@
 # Duty Cycle
 
 An extension that adds a Duty Cycle metric to digital measurements.
+![Duty Cycle Measurement Example](files/duty_cycle.png)
 
-![Duty Cycle Measurement Example](files/screenshot.png)
+
+## Instructions
+1. Install this extension by clicking "Install"
+2. Add a measurement by clicking on the "Annotations panel" on the right, then the Measurements "+" icon.
+![Duty Cycle Measurement Example](files/duty_cycle.png)
+3. Drag the measurement selection window over your digital data.
