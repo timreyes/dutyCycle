@@ -1,0 +1,20 @@
+{
+  "name": "Duty Cycle",
+  "apiVersion": "1.0.0",
+  "author": "Tim Reyes",
+  "version": "0.0.1",
+  "description": "Digital Measurement for duty cycle",
+  "extensions": {
+    "DutyCycle": {
+      "type": "DigitalMeasurement",
+      "entryPoint": "dutyCycle.DutyCycleMeasurer",
+      "metrics": {
+        "dutyCycle": {
+          "name": "Duty Cycle",
+          "notation": "D<sub>cycle</sub>",
+          "units": "%"
+        }
+      }
+    }
+  }
+}
