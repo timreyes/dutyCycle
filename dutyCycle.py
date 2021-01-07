@@ -19,6 +19,7 @@ class DutyCycleMeasurer(DigitalMeasurer):
         self.total_pulse_length_of_first_type = None
         self.total_pulse_length_of_second_type = None
         self.first_pulse_length = None
+        self.current_pulse_length = None
 
 
     # This method will be called one or more times per measurement with batches of data
@@ -46,12 +47,19 @@ class DutyCycleMeasurer(DigitalMeasurer):
             # is a neg. pulse)
             elif bitstate == self.first_transition_type:
                 # Measure the length of the last pulse and save the current transition time for the next cycle
-                current_pulse_length = t - self.last_transition_time
+                self.current_pulse_length = t - self.last_transition_time
                 self.last_transition_time = t
-                self.total_pulse_length_of_second_type += current_pulse_length
 
-                # Wait until entire period is complete before tallying up the first pulse length
-                self.total_pulse_length_of_first_type += self.first_pulse_length
+                # Check if our variable tallies are still valid, since we may be working on the next batch of data with variables reset
+                if ((self.total_pulse_length_of_second_type == None) and (self.total_pulse_length_of_first_type == None)):
+                    self.total_pulse_length_of_second_type = self.current_pulse_length
+                    self.total_pulse_length_of_first_type = self.first_pulse_length
+                else:
+                    # Now that entire period is complete, tally up the second pulse length
+                    self.total_pulse_length_of_second_type = self.total_pulse_length_of_second_type + self.current_pulse_length
+
+                    # Now that entire period is complete, tally up the first pulse length
+                    self.total_pulse_length_of_first_type = self.total_pulse_length_of_first_type + self.first_pulse_length
 
     # This method is called after all the relevant data has been passed to `process_data`
     # It returns a dictionary of the request_measurements values
